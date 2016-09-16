@@ -1,0 +1,49 @@
+COMP30019 Graphics and Interaction 
+Project Proposal - Rolly Mountain
+
+Hugh Edwards (hughe 584183)
+Daniel Porteous (porteousd 696965)
+
+1. Application Description
+
+Rolly Mountain is a game where the player controls a ball rolling down an endless, randomly generated slope. The aim of the game is to travel the greatest distance down the hill without falling off the edges into the water. The slope will be made up of randomly generated fractal terrain which becomes progressively narrower as player travels further down the slope. The player also moves faster the further they travel. Obstacles such as walls randomly appear will knock the player off the slope. The game ends once the player falls off the edge of the hill into the water below. Several power-ups, such as increased jump speed, or ‘ghost’ (where the player passes through obstacles), may be implemented, time permitting. Further, different types of obstacles may be implemented (such as bumpers, or moving obstacles).
+
+2. Hardware Inputs
+
+The game is designed to be played on a Microsoft Surface. The player’s left and right movement is controlled by the accelerometer (tilting left or right makes the ball roll in those directions). Additionally, tapping anywhere on the surface will cause the player to jump, which can be used to avoid obstacles. The game will also have a menu on startup or player death, which will have buttons which can be touched with the touch screen. The menu allows a new ‘run’ of the game to be started, the controls to be visualised, or the game to be exited.
+
+3. Visualisation
+
+The camera will follow the player in a ‘third person style’ (above and behind the ball) as it travels down the hill. The phong illumination model, and phong shading will be used to visualise the game. The water at the sides of the slope will be semi-transparent. Bump mapping will be used on the ball and on the wall obstacles. On collision with walls, the player emits sparks as particles. Objects will cast shadows onto other objects. The ball will also be specular. Fog may be implemented to obscure further parts of the hill, time permitting.
+
+4. Milestones
+
+● Decide on project idea, plan project
+● Register game on Windows Store
+● Proposal submission - 4pm Friday 16 September
+● Set up Google Docs, Github
+● Game features
+	○ Ball visible with custom phong shader, single point light, main camera
+		■ Specular, diffuse and ambient components implemented
+	○ Ball motion controlled by accelerometer
+	○ Flat hill, with ball rolling, with third-person camera and point light following
+	○ Ball jumps on tap
+	○ Water added on either side of slope
+	○ ‘Game over’ scenario implemented on player death
+	○ Randomly generated, stationary obstacles
+	○ Procedurally generated terrain constituting the hill, segments created and deleted based on position relative to camera
+	○ Menu implemented
+	○ Scoring system implemented
+	○ Bump mapping implemented on the player (terrain or obstacles optionally)
+	○ Shadow volumes implemented
+	○ Particles implemented for sparks on collisions
+	○ (optional) Moving obstacles
+	○ (optional) Powerups implemented
+	○ (optional) terrain added underneath water for visual effect
+	○ (optional) Fog added to obscure distant objects/terrain
+	○ (optional) Sound effects such as collision sounds
+	○ (optional) Happy, copyright friendly music
+● Finish working copy of game - Friday 14 October 
+● Electronic Submission 2 - 8am Monday 17 October
+● Demonstration: 11am Tuesday  18 October
+● Final electronic submission 3 - 4pm Friday 21 October
