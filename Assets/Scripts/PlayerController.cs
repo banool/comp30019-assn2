@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour {
     // Tried and failed to implemenet gyro stuff
     // at the moment, arrow keys move left/right, space to junmp
 
-    public float speed = 10.0F;
+    public float forwardSpeed = 1.0f;
+    public float sideSpeed = 10.0F;
     public float jump = 10000.0F;
     public Shader shader;
 
@@ -62,9 +63,9 @@ public class PlayerController : MonoBehaviour {
 
         float moveHorizontal = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 1.0f*forwardSpeed);
 
-        rb.AddForce(movement * speed);
+        rb.AddForce(movement * sideSpeed);
 
 
 
