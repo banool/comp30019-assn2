@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class MenuControl : MonoBehaviour {
+public class WelcomeControl : MonoBehaviour {
 
     public void PlayFunction() {
         SceneManager.LoadScene("MainGame");

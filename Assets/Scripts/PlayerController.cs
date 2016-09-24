@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 
     //GYRO STUFF
 
-    private Gyroscope m = Input.gyro;
+    private Gyroscope m;
 
 
 
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 
         //GYRO STUFF
-
+        m = Input.gyro;
         m.enabled = true;
 
 
