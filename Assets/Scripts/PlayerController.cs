@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour {
     // Tried and failed to implemenet gyro stuff
     // at the moment, arrow keys move left/right, space to junmp
 
-    public float forwardSpeed = 1.0f;
-    public float sideSpeed = 10.0F;
-    public float jump = 10000.0F;
+    public float sideSpeed = 20.0f;
+    public float friction = 5.0f;
+    public float jump = 10000.0f;
     public Shader shader;
 
     public PointLight light;
@@ -63,9 +63,21 @@ public class PlayerController : MonoBehaviour {
 
         float moveHorizontal = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 1.0f*forwardSpeed);
+        // Assembling the final force vector (horizontal movement from arrow keys
+        // or maybe forwards/backwards force based on power up.
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
 
         rb.AddForce(movement * sideSpeed);
+
+        // Apply sideways friction.
+        int xMovementDirection;
+        if (rb.velocity.x > 0)
+            xMovementDirection = 1;
+        else
+            xMovementDirection = -1;
+
+        Vector3 frictionVector = new Vector3(-xMovementDirection, 0.0f, 0.0f);
+        rb.AddForce(friction * frictionVector);
 
 
 
