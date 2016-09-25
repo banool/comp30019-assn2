@@ -19,6 +19,6 @@ public class DisplayScript : MonoBehaviour {
 
         score = score + Time.deltaTime;
 
-        scoreText.text = "Score: " + ((Mathf.Round(score * 100)) / 100).ToString();
+        scoreText.text = "Score: " + ((Mathf.Round(score * 100)) / 100).ToString("F2");
 	}
 }
