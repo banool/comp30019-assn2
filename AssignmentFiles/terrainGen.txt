@@ -1,0 +1,8 @@
+We want a ball rolling down an infinite slope. We can't actually have an infinite slope because computers have finite memory.
+Having something just really big would be inefficient. To solve this, we will only generate chunks of terrain as they are needed.
+As such, we need some way of obscuring terrain at the bottom, otherwise the player could see where the terrain ends.
+My plan is to do some sort of mist thing at the bottom. The best way to do this would be to have the mist move with the player
+a fixed distance away from them. This would prevent the player from seeing where terrain hasn't been generated yet.
+
+Terrain behind the player will be destroyed. The plan is to have two chunks of exist at one time. When the player moves off
+from the first chunk to the second, the first will be destroyed and another will be generated.
