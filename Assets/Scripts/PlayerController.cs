@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
     //Player controller
     //Handles shader stuff
     // Tried and failed to implemenet gyro stuff
-    // at the moment, arrow keys move left/right, space to junmp
+    // at the moment, arrow keys move left/right, space to jump
 
     public float sideSpeed = 20.0f;
     public float friction = 5.0f;
@@ -21,17 +21,20 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody rb;
 
-    private bool onGround = false;
-
 
     //GYRO STUFF
 
     private Gyroscope m;
 
+    // Public with get so that the particle system knows if it is airborne.
+    // If it is, it won't spawn additional particles when space is pressed.
+    public bool onGround;
 
 
     // Use this for initialization
     void Start () {
+
+        onGround = false;
 
         rb = GetComponent<Rigidbody>();
 
@@ -67,7 +70,12 @@ public class PlayerController : MonoBehaviour {
         // or maybe forwards/backwards force based on power up.
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
 
-        rb.AddForce(movement * sideSpeed);
+        // If in the air, quarter sideways movement ability.
+        if (!onGround) {
+            rb.AddForce(movement * sideSpeed/4.0f);
+        } else {
+            rb.AddForce(movement * sideSpeed);
+        }
 
         // Apply sideways friction.
         int xMovementDirection;
@@ -112,16 +120,12 @@ public class PlayerController : MonoBehaviour {
 
 
         //Jump control
-        if (Input.GetKeyDown("space") && onGround)
-        {
-
+        if (Input.GetKeyDown("space") && onGround) {
             rb.AddForce(0.0f, 1.0f * jump, 0.0f);
             onGround = false;
         }
 
-
-
-        }
+    }
 
     //Onground for tesdtig whether player can jump or not
     void OnCollisionEnter(Collision collision)
