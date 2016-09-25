@@ -36,4 +36,14 @@ public class WaterScript : MonoBehaviour {
         renderer.material.SetColor("_PointLightColor", this.sun.color);
         renderer.material.SetVector("_PointLightPosition", this.sun.GetWorldPosition());
     }
+
+    void OnCollisionEnter(Collision other)
+    {
+       if (other.gameObject.tag == "player") {
+            Application.LoadLevel(0);
+        }
+
+    }
+
+
 }
