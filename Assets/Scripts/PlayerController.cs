@@ -9,13 +9,13 @@ public class PlayerController : MonoBehaviour {
     //Handles shader stuff
     // Tried and failed to implemenet gyro stuff
     // at the moment, arrow keys move left/right, space to jump
-
+    public float forwardSpeed = 0.5f;
     public float sideSpeed = 20.0f;
     public float friction = 5.0f;
     public float jump = 10000.0f;
     public Shader shader;
 
-    public PointLight light;
+    public PointLight plight;
 
 
 
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour {
 
         // Assembling the final force vector (horizontal movement from arrow keys
         // or maybe forwards/backwards force based on power up.
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, forwardSpeed);
 
         // If in the air, quarter sideways movement ability.
         if (!onGround) {
@@ -115,8 +115,8 @@ public class PlayerController : MonoBehaviour {
         //shading stuff
         MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
 
-        renderer.material.SetColor("_PointLightColor", this.light.color);
-        renderer.material.SetVector("_PointLightPosition", this.light.GetWorldPosition());
+        renderer.material.SetColor("_PointLightColor", this.plight.color);
+        renderer.material.SetVector("_PointLightPosition", this.plight.GetWorldPosition());
 
 
         //Jump control

@@ -9,6 +9,7 @@ public class SlopeController : MonoBehaviour {
 
     public GameObject initialSlope;
     public GameObject slopePrefab;
+    private float slopePrefabLength;
 
     public PlayerController player;
 
@@ -16,6 +17,9 @@ public class SlopeController : MonoBehaviour {
 	void Start () {
         currentSlope = null;
         nextSlope = initialSlope;
+        // Getting the z length of the slope. Better than hardcoding it in.
+        slopePrefabLength = slopePrefab.GetComponent<Renderer>().bounds.extents.z * 2;
+        print(slopePrefabLength);
 	}
 	
 	// Update is called once per frame
@@ -25,19 +29,20 @@ public class SlopeController : MonoBehaviour {
 
     // This is called when the player hits the trigger wall.
     public void GenerateTerrain() {
-        // This predicate only triggers on the first triggering.
+        // This predicate only triggers on the first slope section.
         if (currentSlope != null) {
-            print("watup");
+            //print("watup");
             Destroy(currentSlope);
         }
-        print("yo");
+        //print("yo");
         currentSlope = nextSlope;
-        print("bro");
+        //print("bro");
         nextSlope = GetNewSlope(currentSlope);
     }
 
     GameObject GetNewSlope(GameObject currentSlope) {
-        Vector3 newPosition = currentSlope.transform.position + new Vector3(0, -17, 47);
+        Vector3 newPosition = currentSlope.transform.position + new Vector3(0, 0, slopePrefabLength);
+        print(newPosition);
         Quaternion newRotation = currentSlope.transform.rotation;
         return Instantiate(currentSlope, newPosition, newRotation) as GameObject;
     }
