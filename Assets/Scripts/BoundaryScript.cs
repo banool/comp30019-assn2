@@ -5,7 +5,9 @@ public class BoundaryScript : MonoBehaviour {
 
 	void OnTriggerExit(Collider other)
     {
-        Destroy(other.gameObject);
+        if (other.gameObject.tag == "obstacle") {
+            Destroy(other.gameObject);
+        }
 
     }
 }

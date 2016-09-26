@@ -15,8 +15,10 @@ public class TerrainTriggerWall : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter() {
-        print("hey");
-        slopeController.GenerateTerrain();
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "player") { 
+         print("hey");
+         slopeController.GenerateTerrain();
+    }
     }
 }

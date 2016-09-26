@@ -9,7 +9,7 @@ public class WallScript : MonoBehaviour {
     public Shader shader;
     public PointLight light;
 
-    public float speed = 10;
+    public float speed = 0;
 
     void Start()
     {
