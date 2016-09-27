@@ -39,4 +39,13 @@ public class WallScript : MonoBehaviour {
 
         this.GetComponent<Rigidbody>().velocity = new Vector3 (0.0F, 0.0F, -1.0F * speed);
     }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "player")
+        {
+            Application.LoadLevel(0);
+        }
+
+    }
 }

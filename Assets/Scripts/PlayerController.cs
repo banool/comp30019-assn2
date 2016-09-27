@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
     public float sidewaysAirFrictionFactor = 2.0f;
     public Shader shader;
 
+    public ParticleSystem Particles;
+    public int BurstNumber = 15;
+
     public PointLight plight;
 
 
@@ -131,7 +134,11 @@ public class PlayerController : MonoBehaviour {
     //Onground for tesdtig whether player can jump or not
     void OnCollisionEnter(Collision collision)
     {
-        onGround = true;
+        if (!onGround)
+        {
+            onGround = true;
+            Particles.Emit(BurstNumber);
+        }
 
     }
 

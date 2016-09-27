@@ -29,7 +29,7 @@ public class ObstacleSpawnerScript : MonoBehaviour {
         timer -= Time.deltaTime;
         if (timer < 0)
         {
-            int newY = (int)(slope.transform.position.y+2);
+            int newY = (int)(slope.transform.position.y+1);
             int newZ = (int)(player.transform.position.z)+offsetZ;
 
             spawnRotation = Quaternion.Euler(0.0F, Random.Range(0.0F, 360.0F), 0.0F);

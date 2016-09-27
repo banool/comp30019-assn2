@@ -30,7 +30,7 @@ public class ParticleScript : MonoBehaviour
         // The if statement says if it is in the air, it shouldnt emit more particles 
         // when space is pressed, but it does anyway.
         if (Input.GetKeyDown("space") && !following.onGround) {
-            p.Emit(BurstNumber);
+           // p.Emit(BurstNumber);
         }
     }
 
