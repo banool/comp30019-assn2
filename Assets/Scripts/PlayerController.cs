@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour {
     //Handles shader stuff
     // Tried and failed to implemenet gyro stuff
     // at the moment, arrow keys move left/right, space to jump
-    public float forwardSpeed = 0.5f;
-    public float sideSpeed = 20.0f;
+    public float forwardSpeed = 0.25f;
+    public float sideSpeed = 25.0f;
     public float friction = 5.0f;
-    public float jump = 10000.0f;
+    public float jump = 400.0f;
+    public float sidewaysAirFrictionFactor = 2.0f;
     public Shader shader;
 
     public PointLight plight;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour {
 
         // If in the air, quarter sideways movement ability.
         if (!onGround) {
-            rb.AddForce(movement * sideSpeed/4.0f);
+            rb.AddForce(movement * sideSpeed/sidewaysAirFrictionFactor);
         } else {
             rb.AddForce(movement * sideSpeed);
         }
