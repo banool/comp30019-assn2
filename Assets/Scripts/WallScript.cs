@@ -44,8 +44,9 @@ public class WallScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "player")
         {
-            Application.LoadLevel(0);
+            GameObject.Find("Canvas/GameOver").GetComponent<GameOverScript>().EndGame();
         }
 
     }
+
 }

@@ -4,7 +4,7 @@ using System.Collections;
 public class MusicScript : MonoBehaviour {
 
     AudioSource audioSource;
-    public float rampUp = 0.05f;
+    public float rampUp = 0.08f;
 
 	// Use this for initialization
 	void Start () {
