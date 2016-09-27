@@ -7,6 +7,7 @@ public class DisplayScript : MonoBehaviour {
 
 
     public Text scoreText;
+    public PlayerController player;
     static public  float score;
 
 	// Use this for initialization
@@ -17,8 +18,9 @@ public class DisplayScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        score = score + Time.deltaTime;
+        float playerSpeed = player.GetComponent<Rigidbody>().velocity.magnitude;
+        score += playerSpeed * Time.deltaTime / 10;
 
-        scoreText.text = "Score: " + ((Mathf.Round(score * 100)) / 100).ToString("F2");
+        scoreText.text = "Score: " + ((int)((Mathf.Round(score * 100)) / 100)).ToString();
 	}
 }
