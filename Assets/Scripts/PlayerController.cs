@@ -14,20 +14,19 @@ public class PlayerController : MonoBehaviour {
     public float friction = 5.0f;
     public float jump = 400.0f;
     public float sidewaysAirFrictionFactor = 2.0f;
-    public Shader shader;
 
+    public Shader shader;
     public ParticleSystem Particles;
     public int BurstNumber = 15;
 
     public PointLight plight;
 
-
-
     private Rigidbody rb;
 
 
     //GYRO STUFF
-
+    public float gyroDeadzone = 5.0f;
+    public float gyroMaxAngle = 30.0f;
     private Gyroscope m;
 
     // Public with get so that the particle system knows if it is airborne.
@@ -68,7 +67,30 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveHorizontal;
+        DebugConsole.Log("Att: " + Input.gyro.attitude + ". Euler: " + Input.gyro.attitude.eulerAngles);
+
+        Quaternion att = m.attitude;
+        float xAngle = att.eulerAngles.x;
+        // Standarising to -180 to 180 degrees.
+        if (xAngle > 180.0f) {
+            xAngle -= 360.0f;
+        }
+
+        // Clamp the rotation (to about 30 degrees each side). Don't want to player 
+        //  to have to rotate the device upside down for those super tight turns.
+        if (Mathf.Abs(xAngle) > gyroMaxAngle) {
+            xAngle = gyroMaxAngle * Mathf.Sign(xAngle);
+        }
+        DebugConsole.Log("xAngle: " + xAngle);
+
+        // We keep a deadzone should be about 10 degrees.
+        if (Mathf.Abs(xAngle) > gyroDeadzone) {
+            moveHorizontal = -xAngle / gyroMaxAngle;
+        } else {
+            // If no gyro action, use the keyboard.
+            moveHorizontal = Input.GetAxis("Horizontal");
+        }
 
         // Assembling the final force vector (horizontal movement from arrow keys
         // or maybe forwards/backwards force based on power up.
@@ -83,10 +105,14 @@ public class PlayerController : MonoBehaviour {
 
         // Apply sideways friction.
         int xMovementDirection;
-        if (rb.velocity.x > 0)
+        if (rb.velocity.x > 0) {
             xMovementDirection = 1;
-        else
+        } else
+        if (rb.velocity.x < 0) {
             xMovementDirection = -1;
+        } else {
+            xMovementDirection = 0;
+        }
 
         Vector3 frictionVector = new Vector3(-xMovementDirection, 0.0f, 0.0f);
         rb.AddForce(friction * frictionVector);
@@ -124,7 +150,7 @@ public class PlayerController : MonoBehaviour {
 
 
         //Jump control
-        if (Input.GetKeyDown("space") && onGround) {
+        if ((Input.GetKeyDown("space") || Input.touchCount > 0) && onGround) {
             rb.AddForce(0.0f, 1.0f * jump, 0.0f);
             onGround = false;
         }
