@@ -8,7 +8,6 @@ public class GameOverScript : MonoBehaviour {
     private float gameOverTime;
 
     public void EndGame() {
-        float gameOverStartTime = Time.realtimeSinceStartup;
         // Stop music playing.
         GameObject.Find("MusicPlayer").GetComponent<AudioSource>().Stop();
         // Play explosion.
@@ -17,18 +16,21 @@ public class GameOverScript : MonoBehaviour {
         GetComponent<UnityEngine.UI.Text>().enabled = true;
         // Pause the game.
         Time.timeScale = 0;
+        // This will trigger the game to actually end from the Update function.
+        // Note that FixedUpdate stops when Time.timeScale = 0.
         gameOver = true;
         gameOverTime = Time.realtimeSinceStartup;
     }
 
     void Update() {
-        // We make sure the game has been over for at least 2 seconds, so the
+        // We make sure the game has been over for at least 1 second, so the
         // player doesn't accidentally click away from the game over screen.
-        float timeSinceGameOver = Time.realtimeSinceStartup - gameOverTime;
-        print(timeSinceGameOver);
-        if (gameOver && Input.anyKeyDown && (timeSinceGameOver > 1.0f)) {
-            Time.timeScale = 1;
-            SceneManager.LoadScene("WelcomeScreen");
+        if (gameOver) {
+            float timeSinceGameOver = Time.realtimeSinceStartup - gameOverTime;
+            if (Input.anyKeyDown && (timeSinceGameOver > 1.0f)) {
+                Time.timeScale = 1;
+                SceneManager.LoadScene("WelcomeScreen");
+            }
         }
     }
 }

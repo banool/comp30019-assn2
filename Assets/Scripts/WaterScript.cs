@@ -10,6 +10,10 @@ public class WaterScript : MonoBehaviour {
     public Shader shader;
     public PointLight sun;
 
+    // Needs this to follow the player
+    public PlayerController player;
+    private float offset;
+
     void Start()
     {
  
@@ -25,6 +29,7 @@ public class WaterScript : MonoBehaviour {
 
         mesh.colors = colors;
 
+        offset = transform.position.z - player.transform.position.z;
     }
 
 
@@ -35,13 +40,15 @@ public class WaterScript : MonoBehaviour {
 
         renderer.material.SetColor("_PointLightColor", this.sun.color);
         renderer.material.SetVector("_PointLightPosition", this.sun.GetWorldPosition());
+
+        transform.position = new Vector3(0.0f, 0.0f, (player.transform.position.z + offset));
     }
 
     void OnCollisionEnter(Collision other)
     {
        if (other.gameObject.tag == "player") {
-            Application.LoadLevel(0);
-        }
+            GameObject.Find("Canvas/GameOver").GetComponent<GameOverScript>().EndGame();
+       }
 
     }
 

@@ -7,7 +7,7 @@ public class WallScript : MonoBehaviour {
     //slope script - passes stuff to shader
 
     public Shader shader;
-    public PointLight light;
+    public PointLight light; //TODO im not sure this does anything?
 
     public float speed = 0;
 
