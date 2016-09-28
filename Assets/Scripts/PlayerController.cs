@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
     public float gyroDeadzone = 5.0f;
     public float gyroMaxAngle = 30.0f;
     private Gyroscope m;
+    private float gyroXInitialisationOffset;
 
     // Public with get so that the particle system knows if it is airborne.
     // If it is, it won't spawn additional particles when space is pressed.
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour {
         //GYRO STUFF
         m = Input.gyro;
         m.enabled = true;
+        gyroXInitialisationOffset = 360 - m.attitude.eulerAngles.x;
 
 
 
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour {
         DebugConsole.Log("Att: " + Input.gyro.attitude + ". Euler: " + Input.gyro.attitude.eulerAngles);
 
         Quaternion att = m.attitude;
-        float xAngle = att.eulerAngles.x;
+        float xAngle = att.eulerAngles.x + gyroXInitialisationOffset;
         // Standarising to -180 to 180 degrees.
         if (xAngle > 180.0f) {
             xAngle -= 360.0f;
