@@ -3,23 +3,14 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-
-
-    //Player controller
-    //Handles shader stuff
-    // Tried and failed to implemenet gyro stuff
-    // at the moment, arrow keys move left/right, space to jump
     public float forwardSpeed = 0.25f;
     public float sideSpeed = 25.0f;
     public float friction = 5.0f;
     public float jump = 400.0f;
     public float sidewaysAirFrictionFactor = 2.0f;
 
-    public Shader shader;
     public ParticleSystem Particles;
     public int BurstNumber = 15;
-
-    public PointLight plight;
 
     private Rigidbody rb;
 
@@ -46,23 +37,6 @@ public class PlayerController : MonoBehaviour {
         m = Input.gyro;
         m.enabled = true;
         gyroXInitialisationOffset = 360 - m.attitude.eulerAngles.x;
-
-
-
-        //shading stuff
-
-        MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
-        renderer.material.shader = shader;
-
-        Mesh mesh = GetComponent<MeshFilter>().mesh;
-        Vector3[] vertices = mesh.vertices;
-        Color[] colors = new Color[vertices.Length];
-
-        for (int i = 0; i < vertices.Length; i++)
-            colors[i] = new Color(0.5F, 0.5F, 0.5F, 1.0F);
-
-        mesh.colors = colors;
-
 
     }
 	
@@ -119,39 +93,7 @@ public class PlayerController : MonoBehaviour {
         Vector3 frictionVector = new Vector3(-xMovementDirection, 0.0f, 0.0f);
         rb.AddForce(friction * frictionVector);
 
-
-
-        //GYRO STUFF
-
-        //attempt 1
-
-        //transform.Translate(Input.acceleration.x*100, 0, -Input.acceleration.z*100);
-
-
-        //attempt 2
-
-        // Vector3 dir = Vector3.zero;
-        // dir.x = -Input.acceleration.x;
-        // dir.y = Input.acceleration.y;
-        //  if (dir.sqrMagnitude > 1)
-        //      dir.Normalize();
-        //  dir *= Time.deltaTime;
-        //  transform.Translate(dir * speed);
-
-        //debug
-        //print((Input.acceleration.x).ToString()+","+ (Input.acceleration.y.ToString()) + "," + (Input.acceleration.z).ToString());
-        //print((m.enabled).ToString() + "," + (m.userAcceleration).ToString() + "," + (m.rotationRate).ToString());
-        //print(SystemInfo.supportsAccelerometer);
-
-
-        //shading stuff
-        MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
-
-        renderer.material.SetColor("_PointLightColor", this.plight.color);
-        renderer.material.SetVector("_PointLightPosition", this.plight.GetWorldPosition());
-
-
-        //Jump control
+        // Jump control
         if ((Input.GetKeyDown("space") || Input.touchCount > 0) && onGround) {
             rb.AddForce(0.0f, 1.0f * jump, 0.0f);
             onGround = false;
@@ -159,7 +101,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    //Onground for tesdtig whether player can jump or not
+    // Onground for testing whether player can jump or not
     void OnCollisionEnter(Collision collision)
     {
         if (!onGround)
