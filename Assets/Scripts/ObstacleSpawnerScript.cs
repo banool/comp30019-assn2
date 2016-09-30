@@ -6,7 +6,7 @@ public class ObstacleSpawnerScript : MonoBehaviour {
     public int spawnX=0;
     public int offsetZ = 40;
     public int spawnX_range = 10;
-    public int spawnFrequency=1;
+    public float spawnFrequency=10;
     public PointLight light;
     public SlopeController slope;
     public PlayerController player;
@@ -26,10 +26,10 @@ public class ObstacleSpawnerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        timer -= Time.deltaTime;
+        timer -= Time.deltaTime*player.getSpeed();
         if (timer < 0)
         {
-            int newY = (int)(slope.transform.position.y+1);
+            float newY = (int)(slope.transform.position.y+1);
             int newZ = (int)(player.transform.position.z)+offsetZ;
 
             spawnRotation = Quaternion.Euler(0.0F, Random.Range(0.0F, 360.0F), 0.0F);

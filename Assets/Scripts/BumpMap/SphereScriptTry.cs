@@ -9,6 +9,12 @@ public class SphereScriptTry : MonoBehaviour
     public Texture normalMap;
     public PointLight[] pointLights;
 
+    public float amb = 3.0f;
+    public float diff = 3.0f;
+    public float spec = 0.15f;
+    public float specn = 15.0f;
+
+
     private const int MAX_LIGHTS = 10;
 
     // Use this for initialization
@@ -28,10 +34,10 @@ public class SphereScriptTry : MonoBehaviour
         renderer.material.SetTexture("_NormalMapTex", normalMap);
 
         // Extension task: set parameters appropriately for a brick wall
-        renderer.material.SetFloat("_AmbientCoeff", 3.0f);
-        renderer.material.SetFloat("_DiffuseCoeff", 3.0f);
-        renderer.material.SetFloat("_SpecularCoeff", 0.15f);
-        renderer.material.SetFloat("_SpecularPower", 15.0f);
+        renderer.material.SetFloat("_AmbientCoeff", amb);
+        renderer.material.SetFloat("_DiffuseCoeff", diff);
+        renderer.material.SetFloat("_SpecularCoeff", spec);
+        renderer.material.SetFloat("_SpecularPower", specn);
     }
 
     // Called each frame
