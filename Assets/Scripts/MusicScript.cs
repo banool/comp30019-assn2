@@ -3,19 +3,24 @@ using System.Collections;
 
 public class MusicScript : MonoBehaviour {
 
+    public PlayerController player;
+    public float rampUp = 0.004f;
+    public float startPitch = 0.8f;
+    float offset;
+
     AudioSource audioSource;
-    public float rampUp = 0.08f;
 
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();
-        audioSource.pitch = 0.8f;
+        audioSource.pitch = startPitch;
+        offset = player.GetComponent<Rigidbody>().velocity.magnitude;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
         if (!audioSource.isPlaying) {
-            audioSource.pitch += rampUp;
+            audioSource.pitch = startPitch + (player.GetComponent<Rigidbody>().velocity.magnitude - offset) * rampUp;
             audioSource.Play();
         }
     }
