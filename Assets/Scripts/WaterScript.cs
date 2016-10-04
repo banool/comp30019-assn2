@@ -25,7 +25,7 @@ public class WaterScript : MonoBehaviour {
         Color[] colors = new Color[vertices.Length];
 
         for (int i = 0; i < vertices.Length; i++)
-            colors[i] = new Color (0.2F, 0.3F, 0.5F, 0.5F);
+            colors[i] = new Color (0.2F, 0.3F, 0.5F, 0.7F);
 
         mesh.colors = colors;
 
