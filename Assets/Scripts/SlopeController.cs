@@ -35,7 +35,7 @@ public class SlopeController : MonoBehaviour {
     }
 
     GameObject GetNewSlope(GameObject currentSlope) {
-        Vector3 newPosition = currentSlope.transform.position + new Vector3(0, 0, slopeLength);
+        Vector3 newPosition = currentSlope.transform.position + new Vector3(0, 0, slopeLength/2);
         Quaternion newRotation = currentSlope.transform.rotation;
         return Instantiate(currentSlope, newPosition, newRotation) as GameObject;
     }

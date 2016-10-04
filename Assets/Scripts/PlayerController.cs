@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
         float moveHorizontal;
-        DebugConsole.Log("Att: " + Input.gyro.attitude + ". Euler: " + Input.gyro.attitude.eulerAngles);
+        //DebugConsole.Log("Att: " + Input.gyro.attitude + ". Euler: " + Input.gyro.attitude.eulerAngles);
 
         Quaternion att = m.attitude;
         float xAngle = att.eulerAngles.x + gyroXInitialisationOffset;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         if (Mathf.Abs(xAngle) > gyroMaxAngle) {
             xAngle = gyroMaxAngle * Mathf.Sign(xAngle);
         }
-        DebugConsole.Log("xAngle: " + xAngle);
+        //DebugConsole.Log("xAngle: " + xAngle);
 
         // We keep a deadzone should be about 10 degrees.
         if (Mathf.Abs(xAngle) > gyroDeadzone) {
