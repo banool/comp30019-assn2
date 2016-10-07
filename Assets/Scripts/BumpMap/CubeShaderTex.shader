@@ -2,11 +2,11 @@
 {
 	Properties
 	{
-		_MainTex("Texture", 2D) = "white" {}
+		_MainTex ("Texture", 2D) = "white" {}
 	}
-		SubShader
-		{
-			Pass
+	SubShader
+	{
+		Pass
 		{
 
 			// 1.) This will be the base forward rendering pass in which ambient, vertex, and
@@ -19,7 +19,7 @@
 			#pragma vertex vert
 			#pragma fragment frag
 			#include "UnityCG.cginc"
-
+			
 			// 2.) This matches the "forward base" of the LightMode tag to ensure the shader compiles
 			// properly for the forward bass pass. As with the LightMode tag, for any additional lights
 			// this would be changed from _fwdbase to _fwdadd.
@@ -28,11 +28,11 @@
 			// 3.) Reference the Unity library that includes all the lighting shadow macros
 			#include "AutoLight.cginc"
 
-			uniform sampler2D _MainTex;
+			uniform sampler2D _MainTex;	
 
 			struct vertIn
 			{
-				float4 pos : POSITION;
+				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
 			};
 
@@ -52,24 +52,24 @@
 			vertOut vert(vertIn v)
 			{
 				vertOut o;
-				o.pos = mul(UNITY_MATRIX_MVP, v.pos);
+				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 				// 5.) The TRANSFER_VERTEX_TO_FRAGMENT macro populates the chosen LIGHTING_COORDS in the v2f structure
 				// with appropriate values to sample from the shadow/lighting map
 				TRANSFER_VERTEX_TO_FRAGMENT(o);
 				o.uv = v.uv;
 				return o;
 			}
-
+			
 			// Implementation of the fragment shader
 			fixed4 frag(vertOut v) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, v.uv);
 
-			// 6.) The LIGHT_ATTENUATION samples the shadowmap (using the coordinates calculated by TRANSFER_VERTEX_TO_FRAGMENT
-			// and stored in the structure defined by LIGHTING_COORDS), and returns the value as a float.
-			float attenuation = LIGHT_ATTENUATION(v);
+				// 6.) The LIGHT_ATTENUATION samples the shadowmap (using the coordinates calculated by TRANSFER_VERTEX_TO_FRAGMENT
+				// and stored in the structure defined by LIGHTING_COORDS), and returns the value as a float.
+				float attenuation = LIGHT_ATTENUATION(v);
 
-			return col * attenuation;
+				return col * attenuation;
 			}
 			ENDCG
 		}

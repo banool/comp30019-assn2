@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FogController : MonoBehaviour {
 
-    public Color fogColor = Color.red;
+    public Color fogColor = Color.green;
     public float fogDensity;
 
     void Start()

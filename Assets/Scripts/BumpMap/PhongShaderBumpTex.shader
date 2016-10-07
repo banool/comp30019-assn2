@@ -28,6 +28,13 @@ Shader "Unlit/PhongShaderBumpTex"
 	{
 		Pass
 		{
+
+			// 1.) This will be the base forward rendering pass in which ambient, vertex, and
+			// main directional light will be applied. Additional lights will need additional passes
+			// using the "ForwardAdd" lightmode.
+			// see: http://docs.unity3d.com/Manual/SL-PassTags.html
+			Tags{ "LightMode" = "ForwardBase" }
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -35,6 +42,9 @@ Shader "Unlit/PhongShaderBumpTex"
 			#define MAX_LIGHTS 10
 
 			#include "UnityCG.cginc"
+
+			// 3.) Reference the Unity library that includes all the lighting shadow macros
+			#include "AutoLight.cginc"
 
 			uniform float _AmbientCoeff;
 			uniform float _DiffuseCoeff;
@@ -58,18 +68,28 @@ Shader "Unlit/PhongShaderBumpTex"
 
 			struct vertOut
 			{
-				float4 vertex : SV_POSITION;
+				float4 pos : SV_POSITION;
 				float2 uv : TEXCOORD0;
 				float4 worldVertex : TEXCOORD1;
 				float3 worldNormal : TEXCOORD2;
 				float3 worldTangent : TEXCOORD3;
 				float3 worldBinormal : TEXCOORD4;
+				// 4.) The LIGHTING_COORDS macro (defined in AutoLight.cginc) defines the parameters needed to sample 
+				// the shadow map. The (0,1) specifies which unused TEXCOORD semantics to hold the sampled values - 
+				// As I'm not using any texcoords in this shader, I can use TEXCOORD0 and TEXCOORD1 for the shadow 
+				// sampling. If I was already using TEXCOORD for UV coordinates, say, I could specify
+				// LIGHTING_COORDS(1,2) instead to use TEXCOORD1 and TEXCOORD2.
+				LIGHTING_COORDS(5, 6)
 			};
 
 			// Implementation of the vertex shader
 			vertOut vert(vertIn v)
 			{
 				vertOut o;
+
+				// 5.) The TRANSFER_VERTEX_TO_FRAGMENT macro populates the chosen LIGHTING_COORDS in the v2f structure
+				// with appropriate values to sample from the shadow/lighting map
+				TRANSFER_VERTEX_TO_FRAGMENT(o);
 
 				// Convert Vertex position and corresponding normal into world coords
 				// Note that we have to multiply the normal by the transposed inverse of the world 
@@ -81,7 +101,7 @@ Shader "Unlit/PhongShaderBumpTex"
 				float3 worldBinormal = normalize(cross(worldTangent, worldNormal));
 
 				// Transform vertex in world coordinates to camera coordinates, and pass colour
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.uv = v.uv;
 
 				// Pass out the world vertex position and world normal to be interpolated
@@ -139,9 +159,17 @@ Shader "Unlit/PhongShaderBumpTex"
 				returnColor.rgb = amb.rgb + dif_and_spe_sum.rgb;
 				returnColor.a = surfaceColor.a;
 
-				return returnColor;
+				// 6.) The LIGHT_ATTENUATION samples the shadowmap (using the coordinates calculated by TRANSFER_VERTEX_TO_FRAGMENT
+				// and stored in the structure defined by LIGHTING_COORDS), and returns the value as a float.
+				float attenuation = LIGHT_ATTENUATION(v);
+
+				return returnColor * attenuation;
 			}
 			ENDCG
 		}
 	}
+	// 7.) To receive or cast a shadow, shaders must implement the appropriate "Shadow Collector" or "Shadow Caster" pass.
+	// Although we haven't explicitly done so in this shader, if these passes are missing they will be read from a fallback
+	// shader instead, so specify one here to import the collector/caster passes used in that fallback.
+	Fallback "VertexLit"
 }
