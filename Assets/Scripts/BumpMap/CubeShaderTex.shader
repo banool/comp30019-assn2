@@ -67,15 +67,20 @@
 			// Implementation of the fragment shader
 			fixed4 frag(vertOut v) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, v.uv);
-				UNITY_APPLY_FOG(v.fogCoord, col);
-				UNITY_OPAQUE_ALPHA(col.a);
+
+				float attenuation = LIGHT_ATTENUATION(v);
+
+				fixed4 col = tex2D(_MainTex, v.uv) * attenuation;
+				///UNITY_APPLY_FOG(v.fogCoord, col);
+				//UNITY_OPAQUE_ALPHA(col.a);
 
 				// 6.) The LIGHT_ATTENUATION samples the shadowmap (using the coordinates calculated by TRANSFER_VERTEX_TO_FRAGMENT
 				// and stored in the structure defined by LIGHTING_COORDS), and returns the value as a float.
-				float attenuation = LIGHT_ATTENUATION(v);
+				//float attenuation = LIGHT_ATTENUATION(v);
+				UNITY_APPLY_FOG(v.fogCoord, col);
+				UNITY_OPAQUE_ALPHA(col.a);
 
-				return col * attenuation;
+				return col;// *attenuation;
 			}
 			ENDCG
 		}
