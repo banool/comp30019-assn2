@@ -18,11 +18,6 @@ public class SlopeController : MonoBehaviour {
         // Getting the z length of the slope. Better than hardcoding it in.
         slopeLength = initialSlope.GetComponent<Collider>().bounds.extents.z * 2;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     // This is called when the player hits the trigger wall.
     public void GenerateTerrain() {

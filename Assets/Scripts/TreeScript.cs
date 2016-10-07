@@ -8,6 +8,8 @@ public class TreeScript : MonoBehaviour {
     public Shader shader;
     public PointLight light; //TODO im not sure this does anything?
 
+    public float treeHitPenalty = 50.0f;
+
     MeshRenderer rend;
 
     void Start() {
@@ -27,10 +29,16 @@ public class TreeScript : MonoBehaviour {
 
     }
 
-
     void Update() {
         rend.material.SetColor("_PointLightColor", this.light.color);
         rend.material.SetVector("_PointLightPosition", this.light.GetWorldPosition());
+    }
+
+    void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "player") {
+            GameObject.Find("Canvas/Score").GetComponent<DisplayScript>().reduceScore(treeHitPenalty);
+        }
+
     }
 
 }

@@ -23,4 +23,9 @@ public class DisplayScript : MonoBehaviour {
 
         scoreText.text = "Score: " + ((int)((Mathf.Round(score * 100)) / 100)).ToString();
 	}
+
+    // Reduces score by set amount, going no lower than 0.
+    public void reduceScore(float reduction) {
+        score = Mathf.Max(0, score - reduction);
+    }
 }
