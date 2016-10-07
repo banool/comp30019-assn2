@@ -13,11 +13,13 @@
 			// main directional light will be applied. Additional lights will need additional passes
 			// using the "ForwardAdd" lightmode.
 			// see: http://docs.unity3d.com/Manual/SL-PassTags.html
-			Tags{ "LightMode" = "ForwardBase" }
+			Tags{ "LightMode" = "ForwardBase" "RenderType" = "Opaque" }
+			LOD 100
 
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
+			#pragma multi_compile_fog
 			#include "UnityCG.cginc"
 			
 			// 2.) This matches the "forward base" of the LightMode tag to ensure the shader compiles
@@ -46,6 +48,7 @@
 				// sampling. If I was already using TEXCOORD for UV coordinates, say, I could specify
 				// LIGHTING_COORDS(1,2) instead to use TEXCOORD1 and TEXCOORD2.
 				LIGHTING_COORDS(1, 2)
+				UNITY_FOG_COORDS(3)
 			};
 
 			// Implementation of the vertex shader
@@ -56,6 +59,7 @@
 				// 5.) The TRANSFER_VERTEX_TO_FRAGMENT macro populates the chosen LIGHTING_COORDS in the v2f structure
 				// with appropriate values to sample from the shadow/lighting map
 				TRANSFER_VERTEX_TO_FRAGMENT(o);
+				UNITY_TRANSFER_FOG(o, o.pos);
 				o.uv = v.uv;
 				return o;
 			}
@@ -64,6 +68,8 @@
 			fixed4 frag(vertOut v) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, v.uv);
+				UNITY_APPLY_FOG(v.fogCoord, col);
+				UNITY_OPAQUE_ALPHA(col.a);
 
 				// 6.) The LIGHT_ATTENUATION samples the shadowmap (using the coordinates calculated by TRANSFER_VERTEX_TO_FRAGMENT
 				// and stored in the structure defined by LIGHTING_COORDS), and returns the value as a float.

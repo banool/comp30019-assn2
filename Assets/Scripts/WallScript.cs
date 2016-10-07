@@ -36,8 +36,6 @@ public class WallScript : MonoBehaviour {
 
         renderer.material.SetColor("_PointLightColor", this.light.color);
         renderer.material.SetVector("_PointLightPosition", this.light.GetWorldPosition());
-
-        this.GetComponent<Rigidbody>().velocity = new Vector3 (0.0F, 0.0F, -1.0F * speed);
     }
 
     void OnCollisionEnter(Collision other)
