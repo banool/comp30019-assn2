@@ -92,10 +92,6 @@ Shader "Unlit/PhongShaderBumpTex"
 			{
 				vertOut o;
 
-				// 5.) The TRANSFER_VERTEX_TO_FRAGMENT macro populates the chosen LIGHTING_COORDS in the v2f structure
-				// with appropriate values to sample from the shadow/lighting map
-				TRANSFER_VERTEX_TO_FRAGMENT(o);
-
 				// Convert Vertex position and corresponding normal into world coords
 				// Note that we have to multiply the normal by the transposed inverse of the world 
 				// transformation matrix (for cases where we have non-uniform scaling; we also don't
@@ -115,6 +111,10 @@ Shader "Unlit/PhongShaderBumpTex"
 				o.worldNormal = worldNormal;
 				o.worldTangent = worldTangent;
 				o.worldBinormal = worldBinormal;
+
+				// 5.) The TRANSFER_VERTEX_TO_FRAGMENT macro populates the chosen LIGHTING_COORDS in the v2f structure
+				// with appropriate values to sample from the shadow/lighting map
+				TRANSFER_VERTEX_TO_FRAGMENT(o);
 
 				return o;
 			}

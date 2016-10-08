@@ -7,21 +7,22 @@ public class ObstacleSpawnerScript : MonoBehaviour {
     public int offsetZ = 40;
     public int spawnX_range = 10;
     public float spawnFrequency=10;
-    public PointLight light;
+
+    public PointLight plight;
     public SlopeController slope;
     public PlayerController player;
-
-
     public GameObject obstacle;
 
-    private float timer = 0;
-
-    private Quaternion spawnRotation = Quaternion.Euler(0.0F,0.0F,0.0F);
+    private float timer;
+    private float yAboveSlope;
+    private Quaternion spawnRotation;
 
 	// Use this for initialization
 	void Start () {
-
-	}
+        yAboveSlope = slope.transform.position.y + 1;
+        spawnRotation = Quaternion.Euler(0.0F, 0.0F, 0.0F);
+        timer = 0;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,14 +30,14 @@ public class ObstacleSpawnerScript : MonoBehaviour {
         timer -= Time.deltaTime*player.getSpeed();
         if (timer < 0)
         {
-            float newY = (int)(slope.transform.position.y+1);
-            int newZ = (int)(player.transform.position.z)+offsetZ;
-
+            int newX = spawnX + Random.Range(spawnX_range * -1, spawnX_range);
+            int newZ = (int)(player.transform.position.z) + offsetZ;
             spawnRotation = Quaternion.Euler(0.0F, Random.Range(0.0F, 360.0F), 0.0F);
-            Vector3 spawnPos = new Vector3(spawnX+Random.Range(spawnX_range*-1,spawnX_range), newY, newZ);
+
+            Vector3 spawnPos = new Vector3(newX, yAboveSlope, newZ);
 
             GameObject o = (GameObject) Instantiate(obstacle, spawnPos, spawnRotation);
-            o.GetComponent<WallScript>().light = light;
+            o.GetComponent<RockScript>().SetPLight(plight);
             timer += spawnFrequency;
         }
 	}

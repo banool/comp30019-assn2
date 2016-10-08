@@ -45,11 +45,6 @@ Shader "Unlit/PhongShaderStandard"
 				float3 worldNormal = normalize(mul(transpose((float3x3)_World2Object), v.normal.xyz));
 
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-
-	
-
-				o.color = (1.0F, 1.0F, 1.0F, 1.0F);
-
 				
 				o.worldVertex = worldVertex;
 				o.worldNormal = worldNormal;

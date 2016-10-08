@@ -5,20 +5,17 @@ using System.Collections;
 public class WaterScript : MonoBehaviour {
 
 
-    //Water script - passes in stuff to shader
-
+    // Water script - passes in stuff to shader
     public Shader shader;
     public PointLight sun;
 
-    // Needs this to follow the player
-    public PlayerController player;
-    private float offset;
+    private MeshRenderer rend;
 
     void Start()
     {
  
-        MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
-        renderer.material.shader = shader;
+        rend = GetComponent<MeshRenderer>();
+        rend.material.shader = shader;
 
         Mesh mesh = GetComponent<MeshFilter>().mesh;
         Vector3[] vertices = mesh.vertices;
@@ -28,20 +25,13 @@ public class WaterScript : MonoBehaviour {
             colors[i] = new Color (0.2F, 0.3F, 0.5F, 0.7F);
 
         mesh.colors = colors;
-
-        offset = transform.position.z - player.transform.position.z;
     }
 
 
     void Update()
     {
-
-        MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
-
-        renderer.material.SetColor("_PointLightColor", this.sun.color);
-        renderer.material.SetVector("_PointLightPosition", this.sun.GetWorldPosition());
-
-        transform.position = new Vector3(0.0f, 0.0f, (player.transform.position.z + offset));
+        rend.material.SetColor("_PointLightColor", sun.color);
+        rend.material.SetVector("_PointLightPosition", sun.GetWorldPosition());
     }
 
     void OnCollisionEnter(Collision other)
