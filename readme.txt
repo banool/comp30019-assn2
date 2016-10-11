@@ -1,4 +1,4 @@
-Rolly Mountain - a game by Daniel Porteous (696965) and Hugh Edwards (584183). It was built for the University of Melbourne subject Graphics and Interaction, and made with Unity for the Microsoft Surface.
+Rolly Mountain - a game by Daniel Porteous (696965) and Hugh Edwards (584183). It was built for the University of Melbourne subject Graphics and Interaction, and made with Unity 5.3 for the Microsoft Surface.
 
 YouTube demonstration
 https://www.youtube.com/watch?v=fTZ0RdtsIEg&feature=youtu.be
@@ -71,9 +71,11 @@ Version 1 - completed 13th October 2016.
 
 	-- Textures
 
-		The brick texture and normal maps are taken from ...
+		The brick texture and normal maps are taken from workshop 7.
 
-		Tree textures were taken from ...
+		Tree textures were taken from
+		here: https://s-media-cache-ak0.pinimg.com/originals/bf/4e/3d/bf4e3d78add13f8d8dfd593ed7e6e0c1.jpg
+		here: http://1.bp.blogspot.com/-bZgY2Iwy0IE/U84TxKATRhI/AAAAAAAAFm0/vaF2QJNpLXs/s1600/Plant+hedge+bush+leaf+leaves+texture.jpg
 
 		The terrain, obstacle and dirt textures are taken from the Unity Standard Assets.
 
@@ -87,7 +89,7 @@ Version 1 - completed 13th October 2016.
 
 	-- Sound
 
-		The explosion sound on player death was taken from ...
+		The explosion sound on player death was taken from https://www.freesoundeffects.com/free-sounds/explosion-10070/
 
 	-- Music
 
@@ -95,7 +97,7 @@ Version 1 - completed 13th October 2016.
 
 	-- Skybox
 
-		The skybox (not visible in final game) was painted by Daniel Porteous.
+		The skybox (not visible in final game, but visible on the welcome screen) was painted by Daniel Porteous.
 
 
 
