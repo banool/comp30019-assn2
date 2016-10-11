@@ -1,4 +1,7 @@
-﻿//Hugh Edwards, Daniel Porteous) University of Melbourne Graphics and Interaction 2016
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
+//Hugh Edwards, Daniel Porteous) University of Melbourne Graphics and Interaction 2016
 
 Shader "Unlit/PhongShaderTransparent"
 {
@@ -47,8 +50,8 @@ Shader "Unlit/PhongShaderTransparent"
 			{
 				vertOut o;
 
-				float4 worldVertex = mul(_Object2World, v.vertex);
-				float3 worldNormal = normalize(mul(transpose((float3x3)_World2Object), v.normal.xyz));
+				float4 worldVertex = mul(unity_ObjectToWorld, v.vertex);
+				float3 worldNormal = normalize(mul(transpose((float3x3)unity_WorldToObject), v.normal.xyz));
 
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.color = v.color;

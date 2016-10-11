@@ -56,6 +56,10 @@ public class TextureApplier : MonoBehaviour
             // Pass the actual number of lights to the shader
             rend.material.SetInt("_NumPointLights", this.pointLights.Length);
 
+            // Incomplete code for Unity 5.4.
+            //rend.material.SetColorArray("_PointLightColors", lightColors);
+            //rend.material.SetVectorArray("_PointLightPositions", new Vector4(lightPositions));
+
             // For Unity 5.3 and below; Unity 5.4 and above provides an array passing interface
             // via the material class itself (like SetInt() above)
             PassArrayToShader.Vector3(rend.material, "_PointLightPositions", lightPositions);
