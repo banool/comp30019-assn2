@@ -48,7 +48,7 @@ Version 1 - completed 13th October 2016.
 
 		-- Water
 
-			The water is a semi-transparent textureless shader which also implements phong components (ambient, diffuse, specular). Specularity is increased to create a shiny effect. This allows the player to see the dirt moving beneath the water.
+			The water is a semi-transparent textureless shader which also implements phong components (ambient, diffuse, specular). This was achieved by alterring the alpha component of the vertex colour values, and setting the RenderType to transparent. Specularity is increased to create a shiny effect. This allows the player to see the dirt moving beneath the water.
 
 		-- Shadow volumes
 
@@ -56,7 +56,7 @@ Version 1 - completed 13th October 2016.
 
 		-- Fog
 
-			Fog is implemented on certain objects (eg the slope, obstacles) to obscure those that are 'fading' into the distance. A custom fog shader is used here. These objects are also textured, so that the fog colour is blended onto the texture based on how far the object is from the camera.
+			Fog is implemented on certain objects (eg the slope, obstacles) to obscure those that are 'fading' into the distance. A custom fog shader is used here. These objects are also textured, so that the fog colour is blended onto the texture based on how far the object is from the camera. The attenuation factor determines how much of the original vertex colour is attenuated by the fog colour.
 
 	-- Particles
 
@@ -73,11 +73,17 @@ Version 1 - completed 13th October 2016.
 
 		The brick texture and normal maps are taken from ...
 
+		Tree textures were taken from ...
+
 		The terrain, obstacle and dirt textures are taken from the Unity Standard Assets.
 
 	-- Code inspiration
 
-		Much of the shader code is inspired by shaders written for the Graphics and Interaction labs.
+		The shader PhongShaderTransparent is based upon a shader implemented in our Project 1 solution.
+
+		Portions of the two shaders PhongShaderBumpTex and CubeShaderTex are inspired by lab code written by Alexandre Mutel, with edits by Jeremy Nicholson, Chris Ewin, and Alex Zable.
+
+		PassArrayToShader: a generic script used to pass arrays to shaders. The script, and its use in TexApplier, is inspired by lab material, from http://www.alanzucconi.com/2016/01/27/arrays-shaders-heatmaps-in-unity3d/
 
 	-- Sound
 
@@ -89,7 +95,7 @@ Version 1 - completed 13th October 2016.
 
 	-- Skybox
 
-		The skybox was painted by Daniel Porteous.
+		The skybox (not visible in final game) was painted by Daniel Porteous.
 
 
 
