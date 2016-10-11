@@ -6,13 +6,15 @@ public class TreeScript : MonoBehaviour {
     //slope script - passes stuff to shader
 
     public Shader shader;
-    public PointLight plight; //TODO im not sure this does anything?
+    private PointLight plight; //TODO im not sure this does anything?
 
     public float treeHitPenalty = 50.0f;
 
     MeshRenderer rend;
 
     void Start() {
+
+        plight = GameObject.Find("Main Camera/PointLight").GetComponent<PointLight>();
 
         rend = GetComponent<MeshRenderer>();
         rend.material.shader = shader;
