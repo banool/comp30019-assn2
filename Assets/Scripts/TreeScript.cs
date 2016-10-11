@@ -6,7 +6,7 @@ public class TreeScript : MonoBehaviour {
     //slope script - passes stuff to shader
 
     public Shader shader;
-    public PointLight light; //TODO im not sure this does anything?
+    public PointLight plight; //TODO im not sure this does anything?
 
     public float treeHitPenalty = 50.0f;
 
@@ -30,8 +30,8 @@ public class TreeScript : MonoBehaviour {
     }
 
     void Update() {
-        rend.material.SetColor("_PointLightColor", this.light.color);
-        rend.material.SetVector("_PointLightPosition", this.light.GetWorldPosition());
+        rend.material.SetColor("_PointLightColor", plight.color);
+        rend.material.SetVector("_PointLightPosition", plight.GetWorldPosition());
     }
 
     void OnCollisionEnter(Collision other) {

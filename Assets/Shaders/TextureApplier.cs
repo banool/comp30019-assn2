@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SphereScriptTry : MonoBehaviour
+public class TextureApplier : MonoBehaviour
 {
     public Shader shader;
     public Texture diffuseMap; // This is just our regular texture (more aptly named)
@@ -20,12 +20,6 @@ public class SphereScriptTry : MonoBehaviour
 
     // Use this for initialization
     void Start() {
-        // Add a MeshFilter component to this entity. This essentially comprises of a
-        // mesh definition, which in this example is a collection of vertices, colours 
-        // and triangles (groups of three vertices). 
-        MeshFilter cubeMesh = this.gameObject.GetComponent<MeshFilter>();
-        //cubeMesh.mesh = this.CreateCubeMesh();
-
         // Add a MeshRenderer component. This component actually renders the mesh that
         // is defined by the MeshFilter component.
         rend = GetComponent<MeshRenderer>();
