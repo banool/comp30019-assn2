@@ -47,6 +47,7 @@ Shader "Unlit/PhongShaderBumpTex"
 			// properly for the forward bass pass. As with the LightMode tag, for any additional lights
 			// this would be changed from _fwdbase to _fwdadd.
 			#pragma multi_compile_fwdbase
+			#pragma target 3.0
 			
 			// 3.) Reference the Unity library that includes all the lighting shadow macros
 			#include "AutoLight.cginc"
