@@ -3,6 +3,9 @@ Rolly Mountain - a game by Daniel Porteous (696965) and Hugh Edwards (584183). I
 YouTube demonstration
 https://www.youtube.com/watch?v=fTZ0RdtsIEg&feature=youtu.be
 
+See it deployed for WebGL (use Firefox):
+https://dl.dropboxusercontent.com/u/36382318/finalWebGL/index.html
+
 
 -- Versions
 
