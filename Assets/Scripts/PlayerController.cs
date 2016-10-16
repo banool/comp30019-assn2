@@ -32,13 +32,12 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-        float moveHorizontal;
-        // If there's accelerometer action, use that.
-        if (Mathf.Abs(Input.acceleration.x) > accelerometerDeadzone) {
-            moveHorizontal = Input.acceleration.x * sideSpeed; ;
-        // Otherwise use the keyboard.
-        } else {
-            moveHorizontal = Input.GetAxis("Horizontal") * sideSpeed / keyboardReductionFactor;
+        // If there's keyboard action, use that.
+        float moveHorizontal = Input.GetAxis("Horizontal") * sideSpeed / keyboardReductionFactor; ;
+        // Otherwise use the acceleromoter. Should be safe since you 
+        // wouldn't use keyboard while trying to use the accelerometer.
+        if (moveHorizontal == 0.0) {
+            moveHorizontal = Input.acceleration.x * sideSpeed;
         }
 
         // If in the air, reduce sideways movement ability.

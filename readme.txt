@@ -10,6 +10,8 @@ and made with Unity 5.3 for the Microsoft Surface.
 -- Versions
     Version 1 - completed 13th October 2016.
 
+The Windows Store certification report can be found in AssignmentFiles.
+
 ================================================================================
 
 -- Description
