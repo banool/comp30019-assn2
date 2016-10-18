@@ -121,6 +121,6 @@ Shader "Unlit/PhongShaderBumpTex"
 			ENDCG
 		}
 	}
-
+	Fallback "CubeShaderTex"
 	Fallback "VertexLit"
 }
